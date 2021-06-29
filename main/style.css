@@ -24,17 +24,18 @@ body {
 #questions {
 }
 
-.buttonStyle {
+.btnStyle {
   color: white;
   background-color: teal;
   border-radius: 5px;
   border: none;
   font-size: 24px;
-}
-
-.buttonFlex {
   align-items: center;
 }
+
+/* .btnFlex {
+  align-items: center;
+} */
 
 #answerButtons {
   align-content: center;
