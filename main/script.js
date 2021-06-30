@@ -1,6 +1,7 @@
 const btnStart = document.getElementById('btnStart')
 const questionOutput = document.getElementById('question')
 const answerButtons = document.getElementById('answerButtons')
+const scoreboard = document.getElementById('scoreboard')
 let firstQuestion = 0
 let right = 0
 let wrong = 0
@@ -58,11 +59,6 @@ const questionList = [
 // Waits for Start button to be clicked to run game function
 btnStart.addEventListener('click', startGame)
 
-
-
-
-
-
 // Function that runs when the start button is clicked 
 function startGame() {
     console.log('started')
@@ -78,7 +74,6 @@ function setQuestion() {
 function countdown() {
 
 }
-
 
 // Showing the questions
 function nextQuestion(question) {
@@ -116,19 +111,27 @@ function selectedAnswer(event) {
     Array.from(answerButtons).forEach(btnAnswerChoice => {
         answerChecker(btnAnswerChoice, btnAnswerChoice.dataset.correct)
     })
-    if (firstQuestion <=4){
+    if (firstQuestion <=3) {
         firstQuestion++
     resetQuestion()
+    startGame()
     nextQuestion()
     } else {
         showResults()
+        return;
     }
 }
 
 // Displays score 
 function showResults() {
-    
+    const showAnswers = document.createElement('p')
+    showAnswers.innerText = "Correct: " + right + " Wrong: " + wrong
+    scoreboard.appendChild(showAnswers)
+    questionOutput.remove()
+    answerButtons.remove()
+    btnStart.remove()
 }
+
 // Resets after each question
 function resetQuestion() {
     while (answerButtons.firstChild) {
