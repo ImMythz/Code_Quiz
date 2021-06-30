@@ -1,10 +1,10 @@
-const timer = 60
 const btnStart = document.getElementById('btnStart')
 const questionOutput = document.getElementById('question')
 const answerButtons = document.getElementById('answerButtons')
-const firstQuestion = 0
-let correct = 0
+let firstQuestion = 0
+let right = 0
 let wrong = 0
+let timer = 60
 
 // Array to hold quiz questions and answers
 const questionList = [
@@ -79,6 +79,7 @@ function countdown() {
 
 }
 
+
 // Showing the questions
 function nextQuestion(question) {
     questionOutput.innerText = question.question
@@ -96,7 +97,41 @@ function nextQuestion(question) {
     })
 }
 
+// Checks to see if dataset is true "correct"
+function answerChecker(correct) {
+    if (correct) {
+        right++
+    } else {
+        wrong++;
+    }
+    console.log(right)
+    console.log(wrong)
+}
+
 // Function for when the user selects an answer
-function selectedAnswer() {
+function selectedAnswer(event) {
+    const userChoice = event.target
+    const correct = userChoice.dataset.correct
+    answerChecker(document.body, correct)
+    Array.from(answerButtons).forEach(btnAnswerChoice => {
+        answerChecker(btnAnswerChoice, btnAnswerChoice.dataset.correct)
+    })
+    if (firstQuestion <=4){
+        firstQuestion++
+    resetQuestion()
+    nextQuestion()
+    } else {
+        showResults()
+    }
+}
+
+// Displays score 
+function showResults() {
     
+}
+// Resets after each question
+function resetQuestion() {
+    while (answerButtons.firstChild) {
+        answerButtons.removeChild(answerButtons.firstChild)
+    }
 }
