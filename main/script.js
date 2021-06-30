@@ -2,10 +2,12 @@ const btnStart = document.getElementById('btnStart')
 const questionOutput = document.getElementById('question')
 const answerButtons = document.getElementById('answerButtons')
 const scoreboard = document.getElementById('scoreboard')
+const timeNumber = document.getElementById('timeNumber')
 let firstQuestion = 0
 let right = 0
 let wrong = 0
-let timer = 60
+let timeLeft = 10
+let timer;
 
 // Array to hold quiz questions and answers
 const questionList = [
@@ -63,6 +65,7 @@ btnStart.addEventListener('click', startGame)
 function startGame() {
     console.log('started')
     setQuestion();
+    countdown();
 }
 
 function setQuestion() {
@@ -71,8 +74,19 @@ function setQuestion() {
 }
 
 // Timer function
-function countdown() {
+function countdown(timer) {
+    timer =  setInterval(() => {
+        timeLeft--;
+        timeNumber.innerText = timeLeft
+        if (timeLeft <= 0) {
+            clearInterval(timer)
+            showResults()
+        }
+    }, 1000);
+}
 
+function stopCountdown(timer) {
+    clearInterval(timer)
 }
 
 // Showing the questions
@@ -114,8 +128,7 @@ function selectedAnswer(event) {
     if (firstQuestion <=3) {
         firstQuestion++
     resetQuestion()
-    startGame()
-    nextQuestion()
+    setQuestion()
     } else {
         showResults()
         return;
@@ -130,6 +143,9 @@ function showResults() {
     questionOutput.remove()
     answerButtons.remove()
     btnStart.remove()
+    console.log('baba booey')
+    clearInterval(timer)
+    // timeNumber.remove()
 }
 
 // Resets after each question
