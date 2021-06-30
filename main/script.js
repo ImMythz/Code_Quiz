@@ -68,13 +68,14 @@ function startGame() {
     countdown();
 }
 
+// Sets the next question from questionList
 function setQuestion() {
     nextQuestion(questionList[firstQuestion])
 
 }
 
 // Timer function
-function countdown(timer) {
+function countdown() {
     timer =  setInterval(() => {
         timeLeft--;
         timeNumber.innerText = timeLeft
@@ -83,10 +84,6 @@ function countdown(timer) {
             showResults()
         }
     }, 1000);
-}
-
-function stopCountdown(timer) {
-    clearInterval(timer)
 }
 
 // Showing the questions
@@ -137,6 +134,7 @@ function selectedAnswer(event) {
 
 // Displays score 
 function showResults() {
+    clearInterval(timer)
     const showAnswers = document.createElement('p')
     showAnswers.innerText = "Correct: " + right + " Wrong: " + wrong
     scoreboard.appendChild(showAnswers)
@@ -144,8 +142,6 @@ function showResults() {
     answerButtons.remove()
     btnStart.remove()
     console.log('baba booey')
-    clearInterval(timer)
-    // timeNumber.remove()
 }
 
 // Resets after each question
