@@ -1,24 +1,24 @@
 const timer = 60
-const correct = 0
-const wrong = 0
 const btnStart = document.getElementById('btnStart')
 const questionOutput = document.getElementById('question')
-const btnAnswerChoice = document.getElementById('btnAnswerChoice')
+const answerButtons = document.getElementById('answerButtons')
 const firstQuestion = 0
+let correct = 0
+let wrong = 0
 
 // Array to hold quiz questions and answers
 const questionList = [
     {
-        question: "Test question 1",
+        question: 'Test question 1',
         answers: [
-            { text: '2', correct: true },
-            { text: '4', correct: false },
-            { text: '6', correct: false },
-            { text: '100', correct: false }
+            { text: 'This is an answer 1 choice', correct: true },
+            { text: 'This is an answer 2 choice', correct: false },
+            { text: 'This is an answer 3 choice', correct: false },
+            { text: 'This is an answer 4 choice', correct: false }
         ]
     },
     {
-        question: "Test question 2",
+        question: 'Test question 2',
         answers: [
             { text: '10', correct: true },
             { text: '12', correct: false },
@@ -27,7 +27,7 @@ const questionList = [
         ]
     },
     {
-        question: "Test question 3",
+        question: 'Test question 3',
         answers: [
             { text: '18', correct: true },
             { text: '20', correct: false },
@@ -36,7 +36,7 @@ const questionList = [
         ]
     },
     {
-        question: "Test question 4",
+        question: 'Test question 4',
         answers: [
             { text: '26', correct: true },
             { text: '28', correct: false },
@@ -45,7 +45,7 @@ const questionList = [
         ]
     },
     {
-        question: "Test question 5",
+        question: 'Test question 5',
         answers: [
             { text: '34', correct: true },
             { text: '36', correct: false },
@@ -85,12 +85,15 @@ function nextQuestion(question) {
     console.log(question.question)
     console.log(question.answers)
     question.answers.forEach(answer => {
+        const btnAnswerChoice = document.createElement('button')
         btnAnswerChoice.innerText = answer.text
+        btnAnswerChoice.classList.add('btnStyle')
+        if (answer.correct) {
+            btnAnswerChoice.dataset.correct = answer.correct
+        }
+        btnAnswerChoice.addEventListener('click', selectedAnswer)
+        answerButtons.appendChild(btnAnswerChoice)
     })
-    if (answer.correct) {
-        btnAnswerChoice.dataset.correct = answer.correct
-    }
-    button.addEventListener('click', selectedAnswer)
 }
 
 // Function for when the user selects an answer
