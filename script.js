@@ -10,7 +10,7 @@ const answerBtn = document.getElementById('answerBtn')
 let firstQuestion = 0
 let right = 0
 let wrong = 0
-let timeLeft = 10
+let timeLeft = 60
 let timer;
 let score;
 let highscores;
@@ -70,9 +70,9 @@ btnStart.addEventListener('click', startGame)
 
 // Function that runs when the start button is clicked 
 function startGame() {
-    timeLeft = 10
-    firstQuestion =0
-
+    timeLeft = 60
+    firstQuestion = 0
+    
     setQuestion();
     countdown();
 }
