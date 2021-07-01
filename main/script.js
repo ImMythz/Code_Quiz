@@ -3,11 +3,15 @@ const questionOutput = document.getElementById('question')
 const answerButtons = document.getElementById('answerButtons')
 const scoreboard = document.getElementById('scoreboard')
 const timeNumber = document.getElementById('timeNumber')
+const highscoreContainer = document.getElementById('highscores')
 let firstQuestion = 0
 let right = 0
 let wrong = 0
 let timeLeft = 10
 let timer;
+let score;
+let highscores;
+
 
 // Array to hold quiz questions and answers
 const questionList = [
@@ -142,6 +146,12 @@ function showResults() {
     answerButtons.remove()
     btnStart.remove()
     console.log('baba booey')
+    const username = prompt('Enter your initials to save your score!!!')
+    score = username + ' ' + right
+    localStorage.setItem('score', JSON.stringify(score));
+    highscores = localStorage.getItem('score')
+    highscoreContainer.innerText = highscores
+    restartQuiz()
 }
 
 // Resets after each question
@@ -149,4 +159,9 @@ function resetQuestion() {
     while (answerButtons.firstChild) {
         answerButtons.removeChild(answerButtons.firstChild)
     }
+}
+
+// Function that creates a reset button and restarts quiz
+function restartQuiz() {
+    
 }
