@@ -4,6 +4,9 @@ const answerButtons = document.getElementById('answerButtons')
 const scoreboard = document.getElementById('scoreboard')
 const timeNumber = document.getElementById('timeNumber')
 const highscoreContainer = document.getElementById('highscores')
+const navButtons = document.getElementById('navButtons')
+const answerBtn = document.getElementById('answerBtn')
+
 let firstQuestion = 0
 let right = 0
 let wrong = 0
@@ -16,48 +19,48 @@ let highscores;
 // Array to hold quiz questions and answers
 const questionList = [
     {
-        question: 'Test question 1',
+        question: 'How do you declare a variable in Javascript?',
         answers: [
-            { text: 'This is an answer 1 choice', correct: true },
-            { text: 'This is an answer 2 choice', correct: false },
-            { text: 'This is an answer 3 choice', correct: false },
-            { text: 'This is an answer 4 choice', correct: false }
+            { text: 'var', correct: true },
+            { text: 'define', correct: false },
+            { text: 'global v1 v2', correct: false },
+            { text: 'NEW', correct: false }
         ]
     },
     {
-        question: 'Test question 2',
+        question: 'Which of the following is a Javascript data type? ',
         answers: [
-            { text: '10', correct: true },
-            { text: '12', correct: false },
-            { text: '14', correct: false },
-            { text: '16', correct: false }
+            { text: 'line', correct: false },
+            { text: 'string', correct: true },
+            { text: 'vessel', correct: false },
+            { text: 'container', correct: false }
         ]
     },
     {
-        question: 'Test question 3',
+        question: 'What is a boolean?',
         answers: [
-            { text: '18', correct: true },
-            { text: '20', correct: false },
-            { text: '22', correct: false },
-            { text: '24', correct: false }
+            { text: 'True or False value', correct: true },
+            { text: 'Number stored in a variable', correct: false },
+            { text: 'A method used to combine two strings', correct: false },
+            { text: 'A pool flotation device', correct: false }
         ]
     },
     {
-        question: 'Test question 4',
+        question: 'How many keys and values can you store in an object?',
         answers: [
-            { text: '26', correct: true },
-            { text: '28', correct: false },
-            { text: '30', correct: false },
-            { text: '32', correct: false }
+            { text: '1', correct: false },
+            { text: '10', correct: false },
+            { text: '100', correct: false },
+            { text: 'infinite', correct: true }
         ]
     },
     {
-        question: 'Test question 5',
+        question: 'What is the syntax for comments in Javascript?',
         answers: [
-            { text: '34', correct: true },
-            { text: '36', correct: false },
-            { text: '38', correct: false },
-            { text: '40', correct: false }
+            { text: '--', correct: false },
+            { text: '#', correct: false },
+            { text: '//', correct: true },
+            { text: 'comment [ ]', correct: false }
         ]
     }
 ]
@@ -67,7 +70,9 @@ btnStart.addEventListener('click', startGame)
 
 // Function that runs when the start button is clicked 
 function startGame() {
-    console.log('started')
+    timeLeft = 10
+    firstQuestion =0
+
     setQuestion();
     countdown();
 }
@@ -93,12 +98,11 @@ function countdown() {
 // Showing the questions
 function nextQuestion(question) {
     questionOutput.innerText = question.question
-    console.log(question.question)
-    console.log(question.answers)
     question.answers.forEach(answer => {
         const btnAnswerChoice = document.createElement('button')
         btnAnswerChoice.innerText = answer.text
         btnAnswerChoice.classList.add('btnStyle')
+        btnAnswerChoice.classList.add('answerBtn')
         if (answer.correct) {
             btnAnswerChoice.dataset.correct = answer.correct
         }
@@ -114,8 +118,6 @@ function answerChecker(correct) {
     } else {
         wrong++;
     }
-    console.log(right)
-    console.log(wrong)
 }
 
 // Function for when the user selects an answer
@@ -136,21 +138,28 @@ function selectedAnswer(event) {
     }
 }
 
-// Displays score 
+// Displays score and captures user initials for localstorage
 function showResults() {
+    // Stops timer
     clearInterval(timer)
-    const showAnswers = document.createElement('p')
-    showAnswers.innerText = "Correct: " + right + " Wrong: " + wrong
-    scoreboard.appendChild(showAnswers)
-    questionOutput.remove()
-    answerButtons.remove()
-    btnStart.remove()
-    console.log('baba booey')
+
+    // collects and stores user initials in localstorage
     const username = prompt('Enter your initials to save your score!!!')
+    if (!username) {
+        showResults()
+        return
+    }
     score = username + ' ' + right
     localStorage.setItem('score', JSON.stringify(score));
     highscores = localStorage.getItem('score')
     highscoreContainer.innerText = highscores
+
+    // Displays score
+    const showAnswers = document.createElement('p')
+    showAnswers.innerText = "Correct: " + right + " Wrong: " + wrong
+    scoreboard.appendChild(showAnswers)
+    btnStart.remove()
+    resetQuestion()
     restartQuiz()
 }
 
@@ -163,5 +172,9 @@ function resetQuestion() {
 
 // Function that creates a reset button and restarts quiz
 function restartQuiz() {
-    
+    const restart = document.createElement('button')
+    restart.innerText = 'Restart'
+    restart.classList.add('btnStyle')
+    navButtons.appendChild(restart)
+    restart.addEventListener('click', startGame)
 }
