@@ -15,8 +15,8 @@ This is a JavaScript coding quiz. The purpose of the application is to test the 
 
 ## Demo
 Here are a few screenshots of what the quiz looks like
-<img src='.\Images\quiz_screenshot1.png' alt='screenshot one'>
-<img src='.\Images\quiz_screenshot2.png' alt='screenshot two'>
+<img src='Images\quiz_screenshot1.jpg' alt='screenshot one'>
+<img src='Images\quiz_screenshot2.jpg' alt='screenshot two'>
 
 <a href="https://immythz.github.io/Code_Quiz/" target="_blank">Click here to go to the deployed application</a>
 
